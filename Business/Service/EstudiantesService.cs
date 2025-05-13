@@ -67,7 +67,7 @@ namespace Business.Service
             result.Data = dto;
             return result;
         }
-        public async Task<Result> ActualizarEstudiante(EstudiantesDto estudiantes)
+        public async Task<Result> ActualizarEstudiante(EstudiantesCrearDto estudiantes)
         {
             EstudiantesModel model = Mapper.GetMapper(estudiantes);
             Result oRespuesta = new();
@@ -83,7 +83,7 @@ namespace Business.Service
             result.Data = rs;
 
             return result;
-        }    
+        }
         public async Task<Result> EliminarEstudiante(int id)
         {
             var rs = await _estudiantesR.EliminarEstudiante(id);
@@ -97,6 +97,5 @@ namespace Business.Service
 
             return result;
         }
-
     }
 }

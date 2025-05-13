@@ -1,4 +1,25 @@
+using Business.IService;
+using Business.Service;
+using Microsoft.EntityFrameworkCore;
+using Repository.Data;
+using Repository.IRepository;
+using Repository.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string DefaultConnection not found.");
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+
+
+builder.Services.AddScoped(typeof(IEstudiantesRepository), typeof(EstudiantesRepository));
+builder.Services.AddScoped(typeof(IEstudiantesService), typeof(EstudiantesService));
+
+builder.Services.AddScoped(typeof(IMateriaRepository), typeof(MateriaRepository));
+builder.Services.AddScoped(typeof(IMateriaService), typeof(MateriaService));
+
+builder.Services.AddScoped(typeof(IProfesorRepository), typeof(ProfesorRepository));
+builder.Services.AddScoped(typeof(IProfesorService), typeof(ProfesorService));
+
 
 // Add services to the container.
 
