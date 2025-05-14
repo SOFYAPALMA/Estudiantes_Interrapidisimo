@@ -1,4 +1,5 @@
 ﻿using Domain.Model;
+using Dtos;
 
 namespace Repository.IRepository
 {
@@ -34,6 +35,9 @@ namespace Repository.IRepository
         /// <returns></returns>
         Task<EstudiantesModel> ActualizarEstudiante(EstudiantesModel model);
 
+        Task<EstudiantesModel> AsociarMateriaEstudiante(EstudiantesModel asociar);
+
+
         /// <summary>
         /// Nelly Palma
         /// Metodo para Eliminar Estudiante
@@ -41,5 +45,7 @@ namespace Repository.IRepository
         /// <param name="id"></param>
         /// <returns></returns>
         Task<bool> EliminarEstudiante(int id);
+
+      
     }
 }

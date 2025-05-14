@@ -20,6 +20,12 @@ builder.Services.AddScoped(typeof(IMateriaService), typeof(MateriaService));
 builder.Services.AddScoped(typeof(IProfesorRepository), typeof(ProfesorRepository));
 builder.Services.AddScoped(typeof(IProfesorService), typeof(ProfesorService));
 
+builder.Services.AddScoped(typeof(IEstudianteMateriaRepository), typeof(EstudianteMateriaRepository));
+builder.Services.AddScoped(typeof(IEstudianteMateriaService), typeof(EstudianteMateriaService));
+
+builder.Services.AddScoped(typeof(IProfesorMateriaRepository), typeof(ProfesorMateriaRepository));
+builder.Services.AddScoped(typeof(IProfesorMateriaService), typeof(ProfesorMateriaService));
+
 
 // Add services to the container.
 

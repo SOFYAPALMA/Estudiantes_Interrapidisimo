@@ -43,5 +43,10 @@ namespace Repository.Repository
                 throw;
             }
         }
+
+        public Task<EstudianteMateriaModel>? EstudianteMateriaId(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

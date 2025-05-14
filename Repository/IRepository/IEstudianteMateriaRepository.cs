@@ -2,24 +2,22 @@
 
 namespace Repository.IRepository
 {
-    public interface IMateriaRepository
+    public interface IEstudianteMateriaRepository
     {
         /// <summary>
         /// Nelly Palma
-        /// Metodo para Consultar Materia
+        /// Metodo para Consultar Estudiante
         /// </summary>
         /// <returns></returns>
-        Task<List<MateriaModel>?> ConsultarMaterias();
+        Task<List<EstudianteMateriaModel>?> ConsultarEstMat();
 
         /// <summary>
         /// Nelly Palma
-        /// Metodo para Consultar Materia por id
+        /// Metodo para Consultar Estudiante por id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<MateriaModel>? ConsultarMateriaId(int id);
 
-        Task<EstudianteMateriaModel>? EstudianteMateriaId(int id);
-
+        Task<EstudianteMateriaModel?> ConsultarEstMatId(int idMateria);
     }
 }

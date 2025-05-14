@@ -4,6 +4,10 @@
     {
         public int id { get; set; }
         public string nombre { get; set; }
-        public string apellido { get; set; }
+      
+
+        //Referencia Profesor
+        //public virtual ICollection<ProfesorDto>? idProfesor { get; set; }
     }
 }
+

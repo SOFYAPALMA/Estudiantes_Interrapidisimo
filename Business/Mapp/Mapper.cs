@@ -21,7 +21,6 @@ namespace Business.Mapp
             {
                 id = estudiante.id,
                 nombre = estudiante.nombre,
-                apellido = estudiante.apellido
             };
             return result;
         }
@@ -31,10 +30,25 @@ namespace Business.Mapp
             {
                 id = estudianteCrear.id,
                 nombre = estudianteCrear.nombre,
-                apellido = estudianteCrear.apellido,
                 correo = estudianteCrear.correo,
-                password = estudianteCrear.password
+                password = estudianteCrear.password,
+               
             };
+        
+            return result;
+        }
+        internal static EstudiantesModel GetMapper(EstudiantesAsociarDto estudianteAsociar)
+        {
+            var result = new EstudiantesModel()
+            {
+                id = estudianteAsociar.id,
+                nombre = estudianteAsociar.nombre,
+                Materias = estudianteAsociar.idMateria.Select(id => new MateriaModel
+                {
+                    id = id,                    
+                }).ToList() ?? new List<MateriaModel>()            
+            };
+
             return result;
         }
         internal static EstudiantesDto GetMapper(EstudiantesModel estudianteModel)
@@ -43,7 +57,6 @@ namespace Business.Mapp
             {
                 id = estudianteModel.id,
                 nombre = estudianteModel.nombre,
-                apellido = estudianteModel.apellido
             };
             return result;
         }
@@ -94,8 +107,7 @@ namespace Business.Mapp
             var result = new ProfesorModel()
             {
                 id = profesor.id,
-                nombre = profesor.nombre,
-                apellido = profesor.apellido
+                nombre = profesor.nombre,                
             };
             return result;
         }
@@ -104,8 +116,67 @@ namespace Business.Mapp
             var result = new ProfesorDto()
             {
                 id = profesor.id,
-                nombre = profesor.nombre,
-                apellido = profesor.apellido
+                nombre = profesor.nombre,               
+            };
+            return result;
+        }
+
+
+        internal static List<EstudianteMateriaDto> GetMapper(List<EstudianteMateriaModel> listaEstMat)
+        {
+            var result = new List<EstudianteMateriaDto>();
+
+            foreach (var materiaEs in listaEstMat)
+            {
+                result.Add(GetMapper(materiaEs));
+            }
+            return result;
+        }
+        internal static EstudianteMateriaModel GetMapper(EstudianteMateriaDto materia)
+        {
+            var result = new EstudianteMateriaModel()
+            {
+                idEstudiante = materia.idEstudiante,
+                idMateria = materia.idMateria
+            };
+            return result;
+        }
+        internal static EstudianteMateriaDto GetMapper(EstudianteMateriaModel materia)
+        {
+            var result = new EstudianteMateriaDto()
+            {
+                idEstudiante = materia.idEstudiante,
+                idMateria = materia.idMateria
+            };
+            return result;
+        }
+
+
+        internal static List<ProfesorMateriaDto> GetMapper(List<ProfesorMateriaModel> listaEstMat)
+        {
+            var result = new List<ProfesorMateriaDto>();
+
+            foreach (var materiaEs in listaEstMat)
+            {
+                result.Add(GetMapper(materiaEs));
+            }
+            return result;
+        }
+        internal static ProfesorMateriaModel GetMapper(ProfesorMateriaDto materia)
+        {
+            var result = new ProfesorMateriaModel()
+            {
+                idMateria = materia.idMateria,
+                idProfesor = materia.idProfesor
+            };
+            return result;
+        }
+        internal static ProfesorMateriaDto GetMapper(ProfesorMateriaModel materia)
+        {
+            var result = new ProfesorMateriaDto()
+            {
+                idMateria = materia.idMateria,
+                idProfesor = materia.idProfesor
             };
             return result;
         }
