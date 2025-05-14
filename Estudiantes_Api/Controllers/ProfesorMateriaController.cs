@@ -13,7 +13,7 @@ namespace Estudiantes_Api.Controllers
 
         [HttpGet]
         [Route("ConsultarMatProf")]
-        public async Task<Result> GetMaterias()
+        public async Task<Result> ConsultarMatProf()
         {
             Result oRespuesta = new();
 
@@ -36,7 +36,7 @@ namespace Estudiantes_Api.Controllers
 
         [HttpGet]
         [Route("ConsultarMatProfId")]
-        public async Task<Result> GetMateriasId(int id)
+        public async Task<Result> ConsultarMatProfId(int id)
         {
             Result oRespuesta = new();
 
