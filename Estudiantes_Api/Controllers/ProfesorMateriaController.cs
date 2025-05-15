@@ -11,6 +11,11 @@ namespace Estudiantes_Api.Controllers
     {
         private readonly IProfesorMateriaService _profesorMateriaServ;
 
+        public ProfesorMateriaController(IProfesorMateriaService profesorMateriaServ)
+        {
+            this._profesorMateriaServ = profesorMateriaServ;
+        }
+
         [HttpGet]
         [Route("ConsultarMatProf")]
         public async Task<Result> ConsultarMatProf()

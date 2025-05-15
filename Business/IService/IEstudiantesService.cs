@@ -8,8 +8,7 @@ namespace Business.IService
         Task<Result> CrearEstudiante(EstudiantesCrearDto crear);
         Task<Result> ConsultarEstudiantes();
         Task<Result> ConsultarEstudianteId(int id);
-        Task<Result> ActualizarEstudiante(EstudiantesCrearDto estudiantes);
-        Task<Result> AsociarMateriaEstudiante(EstudiantesAsociarDto asociares);
+        Task<Result> ActualizarEstudiante(EstudiantesCrearDto estudiantes);        
         Task<Result> EliminarEstudiante(int id);
     }
 }

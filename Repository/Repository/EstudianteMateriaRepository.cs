@@ -1,7 +1,11 @@
-﻿using Domain.Model;
+﻿using Commun;
+using Domain.Model;
+using Dtos;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Win32;
 using Repository.Data;
 using Repository.IRepository;
+using System.Xml.Schema;
 
 
 namespace Repository.Repository
@@ -10,7 +14,7 @@ namespace Repository.Repository
     {
         private readonly ApplicationDbContext _context;
 
-        public EstudianteMateriaRepository(ApplicationDbContext context)    
+        public EstudianteMateriaRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -40,8 +44,44 @@ namespace Repository.Repository
             }
             catch (Exception ex)
             {
-                return new EstudianteMateriaModel();
-                throw;
+                return null;
+               
+            }
+        }
+
+        public async Task<EstudianteMateriaModel> AsociarMateriaEstudiante(int idEstudiante, int idMateria)
+        {
+
+            try
+            {
+                // Obtener las materias que ya tiene asignadas el estudiante
+                var materiasAsociadas = await _context.EstudianteMateria
+                    .Where(x => x.idEstudiante == idEstudiante)
+                    .ToListAsync();
+
+                if (materiasAsociadas.Count >= 3)
+
+                {
+                    throw new InvalidOperationException("El estudiante ya tiene asociadas 3 materias.");
+                }
+                // Asociar nuevo estudiante
+
+                var nuevaAsociacion = new EstudianteMateriaModel
+                {
+                    idEstudiante = idEstudiante,
+                    idMateria = idMateria
+                };
+
+
+                // Añadir y guardar el nuevo objeto en la base de datos
+                await _context.EstudianteMateria.AddAsync(nuevaAsociacion);
+                await _context.SaveChangesAsync();
+                return nuevaAsociacion;
+
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al asociar materia al estudiante.", ex);
             }
         }
     }

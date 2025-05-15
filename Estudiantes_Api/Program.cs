@@ -30,11 +30,48 @@ builder.Services.AddScoped(typeof(IProfesorMateriaService), typeof(ProfesorMater
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+// Configuración JWT
+
+//builder.Services.AddScoped<ITokenClaimsService, IdentityTokenClaimService>();
+//builder.Services
+//    .AddAuthorization()
+//    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//    .AddJwtBearer(options =>
+//    {
+//        options.TokenValidationParameters = new TokenValidationParameters
+//        {
+//            ValidateIssuer = true,
+//            ValidateAudience = true,
+//            ValidateLifetime = true,
+//            ValidateIssuerSigningKey = true,
+
+//            ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+//            ValidAudience = builder.Configuration["JwtSettings:Audience"],
+//            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]))
+//        };
+//    });
+
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+#region Shows UseCors with CorsPolicyBuilder.
+
+app.UseCors(builder =>
+{
+    builder
+    .WithOrigins("http://170.247.0.104:2180")
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+});
+
+#endregion
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

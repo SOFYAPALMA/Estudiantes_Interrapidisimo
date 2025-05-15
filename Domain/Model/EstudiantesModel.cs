@@ -9,6 +9,6 @@
 
 
         // Relacion estudiante materia (muchos a muchos)
-        public virtual ICollection<MateriaModel> Materias { get; set; } = new List<MateriaModel>();
+        public virtual ICollection<EstudianteMateriaModel> Materia { get; set; } = new List<EstudianteMateriaModel>();
     }
 }

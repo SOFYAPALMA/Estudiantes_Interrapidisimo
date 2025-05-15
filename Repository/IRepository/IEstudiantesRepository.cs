@@ -35,9 +35,6 @@ namespace Repository.IRepository
         /// <returns></returns>
         Task<EstudiantesModel> ActualizarEstudiante(EstudiantesModel model);
 
-        Task<EstudiantesModel> AsociarMateriaEstudiante(EstudiantesModel asociar);
-
-
         /// <summary>
         /// Nelly Palma
         /// Metodo para Eliminar Estudiante

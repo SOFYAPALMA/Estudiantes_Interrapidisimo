@@ -65,17 +65,20 @@ namespace Repository.Repository
         {
             try
             {
-                var estudiante = await _context.Estudiantes.FindAsync(model.id);
+                var estudianteExistente = await _context.Estudiantes.FindAsync(model.id);
 
-                if (estudiante == null)
+                if (estudianteExistente == null)
                 {
                     return new EstudiantesModel();
                 }
+                estudianteExistente.id = model.id;
+                estudianteExistente.nombre = model.nombre;
+                estudianteExistente.correo = model.correo;
+                estudianteExistente.password = model.password;
 
-                _context.Update(estudiante);
                 await _context.SaveChangesAsync();
 
-                return estudiante;
+                return estudianteExistente;
             }
 
             catch (Exception ex)
@@ -101,96 +104,6 @@ namespace Repository.Repository
             }
         }
 
-        public Task<EstudiantesModel> AsociarMateriaEstudiante(EstudiantesModel asociar)
-        {
-            throw new NotImplementedException();
-        }
-
-        //public async Task<EstudiantesModel> AsociarMateriaEstudiante(EstudiantesAsociarDto asociar)
-        //{
-        //    // Obtener al estudiante con las materias asociadas
-        //    var estudiante = await _context.Estudiantes
-        //                                   .Include(e => e.Materias)
-        //                                   .FirstOrDefaultAsync(e => e.id == asociar.id);
-
-        //    if (estudiante == null)
-        //    {
-        //        throw new Exception("Estudiante no encontrado.");
-        //    }
-
-        //    // Validar límite de materias (3 máximo)
-        //    if (estudiante.Materias.Count + asociar.idMateria.Count > 3)
-        //        return new EstudiantesModel
-        //        {
-        //            Success = false,
-        //            Message = "El estudiante no puede tener más de 3 materias"
-        //        };
-
-        //    // Asociar materias
-        //    foreach (var materiaId in asociar.idMateria)
-        //    {
-        //        var materia = await _context.Materia.FindAsync(materiaId);
-        //        if (materia != null && !estudiante.Materias.Any(m => m.id == materiaId))
-        //        {
-        //            estudiante.Materias.Add(materia);
-        //        }
-        //        return new EstudiantesModel
-        //        {
-        //            Success = true,
-        //            Message = "Materias asociadas correctamente"
-        //        };
-        //    }
-
-        //    await _context.SaveChangesAsync();
-
-        //}
-
-
-
-        //public async Task<EstudiantesModel> AsociarMateriaEstudiante(int estudianteId, int materiaId)
-        //{
-        //    Result oRespuesta = new();
-        //    List<EstudiantesModel>? lstResult = new List<EstudiantesModel>();
-
-        //    try
-        //    {
-        //        // Obtener al estudiante con las materias asociadas
-        //        var estudiante = await _context.Estudiantes
-        //                                         .Include(e => e.Materias)
-        //                                         .FirstOrDefaultAsync(e => e.id == estudianteId);
-
-        //        if (estudiante == null)
-        //        {
-        //            throw new Exception("Estudiante no encontrado.");
-        //        }
-
-        //        // Validar límite de materias (3 máximo)
-        //        if (estudiante.Materias.Count + EstudiantesAsociarDto.idMateria.Count > 3)
-        //            return Result<EstudiantesModel>.Failure("El estudiante no puede tener más de 3 materias");
-
-        //        // Verificar si la materia está asociada
-        //        if (estudiante.Materias.Any(m => m.id == materiaId))
-        //            return estudiante; // El estudiante ya está inscrito en la materia
-
-        //        // Obtener la materia
-        //        var materia = await _context.Materia.FirstOrDefaultAsync(m => m.id == materiaId);
-
-        //        if (materia == null)
-        //        {
-        //            throw new Exception("Materia no encontrada.");
-        //        }
-
-        //        // Asociar la materia al estudiante y guardar
-        //        estudiante.Materias.Add(materia);
-        //        await _context.SaveChangesAsync();
-
-        //        return estudiante;
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        ////        throw new Exception("Error al asociar materia al estudiante: " + ex.Message);
-        //    }
     }
 
 }

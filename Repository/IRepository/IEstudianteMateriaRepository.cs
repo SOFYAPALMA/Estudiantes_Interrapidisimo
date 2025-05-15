@@ -1,4 +1,5 @@
 ﻿using Domain.Model;
+using Dtos;
 
 namespace Repository.IRepository
 {
@@ -19,5 +20,8 @@ namespace Repository.IRepository
         /// <returns></returns>
 
         Task<EstudianteMateriaModel?> ConsultarEstMatId(int idMateria);
+
+        Task<EstudianteMateriaModel> AsociarMateriaEstudiante(int idMateria, int idEstudiante);
     }
+
 }

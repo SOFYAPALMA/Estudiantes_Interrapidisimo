@@ -36,21 +36,7 @@ namespace Business.Mapp
             };
         
             return result;
-        }
-        internal static EstudiantesModel GetMapper(EstudiantesAsociarDto estudianteAsociar)
-        {
-            var result = new EstudiantesModel()
-            {
-                id = estudianteAsociar.id,
-                nombre = estudianteAsociar.nombre,
-                Materias = estudianteAsociar.idMateria.Select(id => new MateriaModel
-                {
-                    id = id,                    
-                }).ToList() ?? new List<MateriaModel>()            
-            };
-
-            return result;
-        }
+        }        
         internal static EstudiantesDto GetMapper(EstudiantesModel estudianteModel)
         {
             var result = new EstudiantesDto()
@@ -132,7 +118,7 @@ namespace Business.Mapp
             }
             return result;
         }
-        internal static EstudianteMateriaModel GetMapper(EstudianteMateriaDto materia)
+        internal static EstudianteMateriaModel GetMapperList(EstudianteMateriaDto materia)
         {
             var result = new EstudianteMateriaModel()
             {

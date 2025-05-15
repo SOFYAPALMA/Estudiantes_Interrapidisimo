@@ -2,11 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Repository.Data;
 using Repository.IRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repository.Repository
 {
@@ -23,10 +18,9 @@ namespace Repository.Repository
         {
             try
             {
-                var lstResult = await _context.ProfesorMateria.AsQueryable().ToListAsync();
+                var lstResult = await _context.ProfesorMateria.AsQueryable().Include(x=> x.Materia).Include(x => x.Profesor).ToListAsync();
                 return lstResult;
             }
-
             catch (Exception)
             {
                 return new List<ProfesorMateriaModel>();

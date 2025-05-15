@@ -6,7 +6,8 @@
         public string nombreMateria { get; set; }
 
         //Referencia Materias
-       public virtual ICollection<EstudiantesModel>? Estudiantes { get; set; } = new List<EstudiantesModel>();
+       public virtual ICollection<EstudianteMateriaModel>? Estudiantes { get; set; } = new List<EstudianteMateriaModel>();
+        public virtual ICollection<ProfesorMateriaModel>? Profesor { get; set; } = new List<ProfesorMateriaModel>();
 
     }
 }
