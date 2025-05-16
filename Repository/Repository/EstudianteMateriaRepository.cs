@@ -1,11 +1,7 @@
-﻿using Commun;
-using Domain.Model;
-using Dtos;
+﻿using Domain.Model;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Win32;
 using Repository.Data;
 using Repository.IRepository;
-using System.Xml.Schema;
 
 
 namespace Repository.Repository
@@ -23,7 +19,7 @@ namespace Repository.Repository
         {
             try
             {
-                var lstResult = await _context.EstudianteMateria.AsQueryable().ToListAsync();
+                var lstResult = await _context.EstudianteMateria.AsQueryable().Include(x => x.Materia).Include(x => x.Estudiante).ToListAsync();
                 return lstResult;
             }
 
@@ -45,13 +41,12 @@ namespace Repository.Repository
             catch (Exception ex)
             {
                 return null;
-               
+
             }
         }
 
         public async Task<EstudianteMateriaModel> AsociarMateriaEstudiante(int idEstudiante, int idMateria)
         {
-
             try
             {
                 // Obtener las materias que ya tiene asignadas el estudiante
@@ -82,6 +77,34 @@ namespace Repository.Repository
             catch (Exception ex)
             {
                 throw new ApplicationException("Error al asociar materia al estudiante.", ex);
+            }
+        }
+
+        public async Task<List<EstudianteMateriaModel>?> ConsultarEstMat(int idEstudiante)
+        {
+            try
+            {
+                var estudiante = await _context.EstudianteMateria.Where(p => p.idEstudiante == idEstudiante).ToListAsync();
+
+                return estudiante;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<EstudianteMateriaModel>?> ConsultarEstMat(int idEstudiante, int idMateria)
+        {
+            try
+            {
+                var estudiante = await _context.EstudianteMateria.Where(p => p.idEstudiante == idEstudiante && p.idMateria == idMateria).ToListAsync();
+
+                return estudiante;
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
     }

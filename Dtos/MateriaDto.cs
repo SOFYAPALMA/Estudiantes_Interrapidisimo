@@ -3,11 +3,6 @@
     public class MateriaDto
     {        
         public int id { get; set; }
-        public string nombreMateria { get; set; }
-
-        // Lista de los estudiantes asociados ID
-        public List<int> idEstudiante { get; set; }
-
-
+        public string nombre { get; set; }
     }
 }

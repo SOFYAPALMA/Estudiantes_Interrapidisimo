@@ -24,19 +24,48 @@ namespace Business.Mapp
             };
             return result;
         }
+        internal static EstudiantesModel GetMapper(EstudiantesActualizarDto estudianteActualizar)
+        {
+            var result = new EstudiantesModel()
+            {
+                id = estudianteActualizar.id,
+                nombre = estudianteActualizar.nombre,
+                correo = estudianteActualizar.correo,
+                password = estudianteActualizar.password
+            };
+        
+            return result;
+        }
         internal static EstudiantesModel GetMapper(EstudiantesCrearDto estudianteCrear)
         {
             var result = new EstudiantesModel()
             {
-                id = estudianteCrear.id,
                 nombre = estudianteCrear.nombre,
                 correo = estudianteCrear.correo,
-                password = estudianteCrear.password,
-               
+                password = estudianteCrear.password
             };
-        
+
             return result;
-        }        
+        }
+        internal static EstudiantesModel GetMapper(InicioSesionDto iniciosesion)
+        {
+            var result = new EstudiantesModel()
+            {
+                correo = iniciosesion.correo,
+                password = iniciosesion.password
+            };
+
+            return result;
+        }
+        public static InicioSesionDto GetMapperToLogin(EstudiantesModel model)
+        {
+            return new InicioSesionDto
+            {
+                correo = model.correo,
+                password = model.password
+            };
+        }
+
         internal static EstudiantesDto GetMapper(EstudiantesModel estudianteModel)
         {
             var result = new EstudiantesDto()
@@ -63,7 +92,7 @@ namespace Business.Mapp
             var result = new MateriaModel()
             {
                 id = materia.id,
-                nombreMateria = materia.nombreMateria
+                nombreMateria = materia.nombre
             };
             return result;
         }
@@ -72,7 +101,7 @@ namespace Business.Mapp
             var result = new MateriaDto()
             {
                 id = materia.id,
-                nombreMateria = materia.nombreMateria
+                nombre = materia.nombreMateria
             };                
             return result;
         }

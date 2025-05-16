@@ -85,7 +85,7 @@ namespace Estudiantes_Api.Controllers
 
         [HttpPut]
         [Route("ActualizarEstudiante")]
-        public async Task<IActionResult> ActualizarEstudiante([FromBody] EstudiantesCrearDto objModel)
+        public async Task<IActionResult> ActualizarEstudiante([FromBody] EstudiantesActualizarDto objModel)
         {
             Result oRespuesta = new();
 

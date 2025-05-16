@@ -26,6 +26,7 @@ namespace Business.Service
 
             var rs = await _estudiantesR.CrearEstudiante(model);
 
+
             Result result = new Result
             {
                 Success = true,
@@ -73,7 +74,7 @@ namespace Business.Service
             result.Data = dto;
             return result;
         }
-        public async Task<Result> ActualizarEstudiante(EstudiantesCrearDto estudiantes)
+        public async Task<Result> ActualizarEstudiante(EstudiantesActualizarDto estudiantes)
         {
             EstudiantesModel model = Mapper.GetMapper(estudiantes);
             Result oRespuesta = new();
@@ -106,6 +107,45 @@ namespace Business.Service
             return result;
         }
 
+        public async Task<Result> ConsultarEstudianteEmail(string correo)
+        {
+            EstudiantesModel? estud = await _estudiantesR.ConsultarEstudianteEmail(correo);
 
+
+            if (estud != null)
+            {
+                InicioSesionDto dto = Mapper.GetMapperToLogin(estud);
+
+                Result result = new Result
+                {
+                    Success = true,
+                    Data = dto
+                };
+                return result;
+
+            }
+            else
+            {
+                Result result = new Result
+                {
+                    Success = false,
+                    Message = "Correo ya registrado"
+                };
+                return result;
+            }
+        }
+
+        public async Task<Result> ValidarLogin(InicioSesionDto validar)
+        {
+            {
+                EstudiantesModel estud = Mapper.GetMapper(validar);
+                var rs = await _estudiantesR.CrearEstudiante(estud);
+
+                Result result = new Result();
+                result.Success = true;
+                result.Data = rs;
+                return result;
+            }
+        }
     }
 }

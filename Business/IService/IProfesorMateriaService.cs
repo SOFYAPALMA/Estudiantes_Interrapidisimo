@@ -11,5 +11,6 @@ namespace Business.IService
     {
         Task<Result> ConsultarMatProf();
         Task<Result> ConsultarMatProfId(int idProfesor);
+        Task<Result> AsociarMateriaProfesor(int idProfesor, int idMateria);
     }
 }

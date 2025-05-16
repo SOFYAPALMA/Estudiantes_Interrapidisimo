@@ -20,7 +20,7 @@ namespace Business.Service
             _materiaR = materiaR;
 
         }
-        
+
         public async Task<Result> ConsultarEstMat()
         {
             List<EstudianteMateriaModel>? comentarios = await _estudianteMatR.ConsultarEstMat();
@@ -63,19 +63,7 @@ namespace Business.Service
         {
             try
             {
-                // Regla 1: El Estudiante sólo puede seleccionar 3 materias
-
-                if (idMateria == null)
-                {
-                    return new Result
-                    {
-                        Success = false,
-                        Message = "El Estudiante puede seleccionar hasta 3 materias."
-                    };
-                }
-
-                // obtener estudiante
-
+                // validar estudiante
                 var estudiante = await _estudiantesR.ConsultarEstudianteId(idEstudiante);
                 if (estudiante == null)
                 {
@@ -86,12 +74,31 @@ namespace Business.Service
                     };
                 }
 
+                //Valida materia
+                var materia = await _materiaR.ConsultarMateriaId(idMateria);
+                if (materia == null)
+                {
+                    return new Result
+                    {
+                        Success = false,
+                        Message = "Materia no encontrada."
+                    };
+                }  
+                
+                // no asociar una materia existente
+                var materias = await _estudianteMatR.ConsultarEstMat(idEstudiante, idMateria);
+                if (materias?.Count != 0)
+                {
+                    return new Result
+                    {
+                        Success = false,
+                        Message = "El estudiante ya tiene esa materia asociada."
+                    };
+                }
+
                 // 3 materias maximo
-
-                var materiasActuales = await _estudianteMatR.ConsultarEstMat();
-                var actuales = materiasActuales?.Where(x => x.idEstudiante == idEstudiante).ToList() ?? new List<EstudianteMateriaModel>();
-
-                if (actuales.Count + idMateria > 3)
+                var materiasActuales = await _estudianteMatR.ConsultarEstMat(idEstudiante);
+                if (materiasActuales?.Count >= 3)
                 {
                     return new Result
                     {
@@ -99,11 +106,11 @@ namespace Business.Service
                         Message = "El estudiante excede el máximo de 3 materias."
                     };
                 }
+
                 var asociadas = new List<EstudianteMateriaModel>();
 
-                    var nuevaAsociacion = await _estudianteMatR.AsociarMateriaEstudiante(idEstudiante, idMateria);
-                    asociadas.Add(nuevaAsociacion);
-                
+                var nuevaAsociacion = await _estudianteMatR.AsociarMateriaEstudiante(idEstudiante, idMateria);
+                asociadas.Add(nuevaAsociacion);
 
                 return new Result
                 {

@@ -27,10 +27,10 @@ namespace Repository.Data
                 .WithMany(p => p.Materia)
                 .HasForeignKey(p => p.idProfesor);
 
-            //modelBuilder.Entity<ProfesorMateriaModel>()
-                //.HasOne(m => m.Materia)
-                //.WithMany(m => m.Profesor)
-                //.HasForeignKey(m => m.idMateria);
+            modelBuilder.Entity<ProfesorMateriaModel>()
+                .HasOne(m => m.Materia)
+                .WithMany(m => m.Profesor)
+                .HasForeignKey(m => m.idMateria);
 
             // Configuración de la relación muchos a muchos entre Estudiantes y Materias
             modelBuilder.Entity<EstudianteMateriaModel>()

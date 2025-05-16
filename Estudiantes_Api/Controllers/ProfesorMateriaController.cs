@@ -1,5 +1,6 @@
 ﻿using Business.IService;
 using Commun;
+using Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -48,6 +49,30 @@ namespace Estudiantes_Api.Controllers
             try
             {
                 var vResult = await _profesorMateriaServ.ConsultarMatProfId(id);
+
+                oRespuesta.Success = vResult.Success;
+                oRespuesta.Message = vResult.Message;
+                oRespuesta.Data = vResult.Data;
+            }
+            catch (Exception ex)
+            {
+                oRespuesta.Success = false;
+                oRespuesta.Message = ex.Message + " - Inner: " + ex.InnerException;
+
+            }
+            return (oRespuesta);
+        }
+
+        [HttpPost]
+        [Route("AsociarMateria")]
+        public async Task<Result> AsociarMateriaProfesor([FromBody] ProfesorMateriaDto request)
+        {
+            Result oRespuesta = new();
+
+            try
+            {
+
+                var vResult = await _profesorMateriaServ.AsociarMateriaProfesor(request.idProfesor, request.idMateria);
 
                 oRespuesta.Success = vResult.Success;
                 oRespuesta.Message = vResult.Message;

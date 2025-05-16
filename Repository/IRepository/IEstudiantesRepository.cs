@@ -43,6 +43,8 @@ namespace Repository.IRepository
         /// <returns></returns>
         Task<bool> EliminarEstudiante(int id);
 
-      
+        Task<EstudiantesModel>? ConsultarEstudianteEmail(string correo);
+
+
     }
 }

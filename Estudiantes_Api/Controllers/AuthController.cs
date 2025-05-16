@@ -2,7 +2,7 @@
 using Commun;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CCL_Api.Controllers
+namespace Estudiantes_Api.Controllers
 {
     public class AuthController : Controller
     {
@@ -15,9 +15,9 @@ namespace CCL_Api.Controllers
 
         [HttpPost]
         [Route("Validate")]
-        public async Task<Result> Validar(string Email, string Clave)
+        public async Task<Result> Validar(string correo, string password)
         {
-            return await _auth.Validar(Email, Clave);
+            return await _auth.Validar(correo, password);
         }
     }
 }

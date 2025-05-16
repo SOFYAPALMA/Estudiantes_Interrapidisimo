@@ -1,11 +1,8 @@
 ﻿namespace Dtos
 {
-    public class EstudiantesCrearDto
+    public class InicioSesionDto
     {
-
-        public string nombre { get; set; }
         public string correo { get; set; }
         public string password { get; set; }
     }
-
 }

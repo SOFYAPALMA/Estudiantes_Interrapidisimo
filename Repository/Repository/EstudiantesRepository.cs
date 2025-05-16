@@ -104,6 +104,21 @@ namespace Repository.Repository
             }
         }
 
+        public async Task<EstudiantesModel>? ConsultarEstudianteEmail(string Correo)
+
+        {
+            try
+            {
+                var estudiante = await _context.Estudiantes.FirstAsync(x => x.correo == Correo);
+                return estudiante;
+            }
+            catch (Exception)
+            {
+                return new EstudiantesModel();
+                throw;
+            }
+        }
+
     }
 
 }
